@@ -15,9 +15,9 @@
 # Filter Designer - MATLAB
 - As stated in the project description, the goal of this project is to first implement a 100-tap Low-Pass Filter (LPF) in matlab with the transition region of $0.2\pi - 0..23 \space (\frac{rad}{sample})$.
 	- Therefore, I utilized filterDesigner available in MATLAB to construct the reference version of the filter
-- ![](Images/Pasted%20image%20260330183118.png)
+- ![](Images/Pasted_image_20260330183118.png)
 
-- ![](Images/Pasted%20image%20260330183935.png)
+- ![](Images/Pasted_image_20260330183935.png)
 - This filter has a sampling frequency of 47 kHz which can be configured within this designer tool.
 - In the given plots, we can clearly see that significant loss occurs after $5\space kHz$. 
 - Therefore, we will be looking for similar attenuation of frequencies after $5\space kHz$ in our hardware implementations.
@@ -30,22 +30,22 @@
 	- The pipeline registers are denoted by dotted blue lines perpendicular to the data paths.
 - Using the Vivado schematic Viewer, we can see what the Synthesis tool maps the HDL code too.
 - What becomes clear is that the Vivado schematic matches our intended design.
-![](Images/Pasted%20image%20260330182623.png)
+![](Images/Pasted_image_20260330182623.png)
 
-![](Images/Pasted%20image%20260324171139.png)
+![](Images/Pasted_image_20260324171139.png)
 
 
 #### Behavioral Simulation
 - Using the Vivado simulator and a simple testbench written in SystemVerilog, I found that the hardware implementation matches the expected behavior from the Magnitude response that we saw in the MATLAB tool. 
 
-![](Images/Pasted%20image%20260324170445.png)
+![](Images/Pasted_image_20260324170445.png)
 
 
 #### Timing Analysis
 - I performed timing analysis after running implementation in Vivado.
 - Vivado allows us to see how the design is routed on the actual chip.
 
-![](Images/Pasted%20image%20260324172508.png)
+![](Images/Pasted_image_20260324172508.png)
 
 - Additionally, we can use the TCL console to perform timing analysis.
 - This report allows us to see the where most of the design delay comes from as well as other key FPGA design considerations such as slack.
@@ -106,25 +106,25 @@ Slack (MET) :             21170.541ns  (required time - arrival time)
 - NOTE: This will appear in all the resources analysis so its worthwhile to address here: I/O usage is very high.
 	- This is because I have not used anything like a high level wrapper module
 
-![](Images/Pasted%20image%20260324172853.png)
+![](Images/Pasted_image_20260324172853.png)
 
-![](Images/Pasted%20image%20260324173208.png)
+![](Images/Pasted_image_20260324173208.png)
 
 
 # Two Parallel FIR Filter
 
 ## Design
 - Parallel Filters use Polyphase Decomposition and this design contains NO pipelining
-- ![](Images/Pasted%20image%20260330182648.png)
+- ![](Images/Pasted_image_20260330182648.png)
 
 
 ## Simulation
 - Once again, the simulation output matches the expected response.
-- ![](Images/Pasted%20image%20260330151221.png)
+- ![](Images/Pasted_image_20260330151221.png)
 
 ## Timing Analysis
 - Chip Layout
-- ![](Images/Pasted%20image%20260330152830.png)
+- ![](Images/Pasted_image_20260330152830.png)
 ```
   Timing Report
 
@@ -169,7 +169,7 @@ Slack (MET) :             21152.850ns  (required time - arrival time)
 ```
 
 ## Power and Resource Utilization
-- ![](Images/Pasted%20image%20260330153448.png)
+- ![](Images/Pasted_image_20260330153448.png)
 
 - Something notable is that we see an increase in DSP slice usage. 
 	- Very much expected.
@@ -177,16 +177,16 @@ Slack (MET) :             21152.850ns  (required time - arrival time)
 
 ## Design
 - Fast Three Parallel FIR Filter Design
-- ![](Images/Pasted%20image%20260330182703.png)
+- ![](Images/Pasted_image_20260330182703.png)
 
 
 ## Simulation
-- ![](Images/Pasted%20image%20260330154326.png)
+- ![](Images/Pasted_image_20260330154326.png)
 - The simulation output demonstrates that the hardware implementation matches the expected response of the MATLAB filter. 
 
 ## Timing Analysis
 report_timing -max_paths 1 -path_type full -delay_type max
-- ![](Images/Pasted%20image%20260330162652.png)
+- ![](Images/Pasted_image_20260330162652.png)
 
 
 
@@ -232,21 +232,21 @@ Slack (MET) :             21146.637ns  (required time - arrival time)
 ```
   
 ## Power and Resource Utilization
-- ![](Images/Pasted%20image%20260330162836.png)
-- ![](Images/Pasted%20image%20260330162925.png)
+- ![](Images/Pasted_image_20260330162836.png)
+- ![](Images/Pasted_image_20260330162925.png)
 
 # Three Parallel Pipelined FIR Filter
 ## Design
 - Note: For this implementation, I found it made sense to duplicate the earlier Pipelined FIR Filter Implementation 3 times in a toplevel file.
 ## Simulation
-- ![](Images/Pasted%20image%20260330163635.png)
+- ![](Images/Pasted_image_20260330163635.png)
 
 ## Timing
 ```
 report_timing -max_paths 1 -path_type full -delay_type max
 ```
 
-- ![](Images/Pasted%20image%20260330165347.png)
+- ![](Images/Pasted_image_20260330165347.png)
 - What results from the duplication is a significantly higher chip area usage.
 ```
   Timing Report
@@ -291,7 +291,7 @@ Slack (MET) :             21169.904ns  (required time - arrival time)
 
 
 ## Utilization and Power
-- ![](Images/Pasted%20image%20260330165624.png)
+- ![](Images/Pasted_image_20260330165624.png)
 
 # Results and Discussion
 
